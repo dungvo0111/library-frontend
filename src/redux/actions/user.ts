@@ -33,11 +33,13 @@ export function signUp(signUpPayload: SignUpPayload) {
 
                 })
             }).catch(err => {
-                console.log(err.response.data.message)
-                dispatch({
-                    type: SIGN_UP_FAILED,
-                    error: err.response.data.message
-                })
+                if (err.response) {
+                    console.log(err.response.data.message)
+                    dispatch({
+                        type: SIGN_UP_FAILED,
+                        error: err.response.data.message
+                    })
+                }
             })
 
         } catch (error) {
@@ -56,11 +58,14 @@ export function signIn(signInPayload: SignInPayload) {
                     type: SIGN_IN
                 })
             }).catch(err => {
-                console.log(err.response.data.message)
-                dispatch({
-                    type: SIGN_IN_FAILED,
-                    error: err.response.data.message
-                })
+                if (err.response) {
+                    console.log(err.response.data.message)
+                    dispatch({
+                        type: SIGN_IN_FAILED,
+                        error: err.response.data.message
+                    })
+                }
+
             })
 
         } catch (error) {
@@ -79,11 +84,13 @@ export function googleSignIn(idToken: string) {
                     type: SIGN_IN
                 })
             }).catch(err => {
-                console.log(err.response.data.message)
-                dispatch({
-                    type: SIGN_IN_FAILED,
-                    error: err.response.data.message
-                })
+                if (err.response) {
+                    console.log(err.response.data.message)
+                    dispatch({
+                        type: SIGN_IN_FAILED,
+                        error: err.response.data.message
+                    })
+                }
             })
 
         } catch (error) {
@@ -115,11 +122,13 @@ export function updateProfile(payload: UpdateProfilePayload) {
                     message: res.data.message
                 })
             }).catch(err => {
-                console.log(err.response.data.message)
-                dispatch({
-                    type: UPDATE_PROFILE_FAILED,
-                    error: err.response.data.message
-                })
+                if (err.response) {
+                    console.log(err.response.data.message)
+                    dispatch({
+                        type: UPDATE_PROFILE_FAILED,
+                        error: err.response.data.message
+                    })
+                }
             })
 
         } catch (error) {
@@ -139,11 +148,13 @@ export function updatePassword(payload: UpdatePasswordPayload) {
                     message: res.data.message
                 })
             }).catch(err => {
-                console.log(err.response.data.message)
-                dispatch({
-                    type: UPDATE_PASSWORD_FAILED,
-                    error: err.response.data.message
-                })
+                if (err.response) {
+                    console.log(err.response.data.message)
+                    dispatch({
+                        type: UPDATE_PASSWORD_FAILED,
+                        error: err.response.data.message
+                    })
+                }
             })
 
         } catch (error) {
@@ -161,11 +172,13 @@ export function forgetPassword(payload: ForgetPasswordPayload) {
                     message: res.data.message
                 })
             }).catch(err => {
-                console.log(err.response.data.message)
-                dispatch({
-                    type: FORGET_PASSWORD_FAILED,
-                    error: err.response.data.message
-                })
+                if (err.response) {
+                    console.log(err.response.data.message)
+                    dispatch({
+                        type: FORGET_PASSWORD_FAILED,
+                        error: err.response.data.message
+                    })
+                }
             })
 
         } catch (error) {
@@ -184,11 +197,13 @@ export function resetPassword(payload: ResetPasswordPayload) {
                     message: res.data.message
                 })
             }).catch(err => {
-                console.log(err)
-                dispatch({
-                    type: RESET_PASSWORD_FAILED,
-                    error: err.response.data.message
-                })
+                if (err.response) {
+                    console.log(err)
+                    dispatch({
+                        type: RESET_PASSWORD_FAILED,
+                        error: err.response.data.message
+                    })
+                }
             })
 
         } catch (error) {

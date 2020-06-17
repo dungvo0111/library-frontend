@@ -10,12 +10,15 @@ export default function GoogleSignIn() {
   const responseGoogle = (response: any) => {
     dispatch(googleSignIn(response.tokenId));
   };
+  const handleFailure = (error:any) => {
+    console.log(error)
+  }
   return (
     <GoogleLogin
-      clientId="456127615538-nluujdn800184ps5cg7su6jh2vujvh2t.apps.googleusercontent.com"
+      clientId="456127615538-je5k6c367plkld6ulva7ovdrq2mksuj2.apps.googleusercontent.com"
       buttonText="Login with Google"
       onSuccess={responseGoogle}
-      onFailure={responseGoogle}
+      onFailure={handleFailure}
     />
   );
 }
