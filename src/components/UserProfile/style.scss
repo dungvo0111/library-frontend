@@ -1,0 +1,20 @@
+.userProfile {
+    margin: 20px;
+    padding: 0 20px;
+    width: 50%;
+    max-width: 400px;
+    border: 1px solid black;
+    border-radius: 5px;
+    line-height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__elem {
+      display: flex;
+      p {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+    }
+  }

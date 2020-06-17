@@ -1,0 +1,31 @@
+.signInContainer {
+  display: flex;
+
+  .signInForm {
+    padding-right: 10px;
+    display: flex;
+    align-items: flex-end;
+    &__elem {
+      font-size: 14px;
+      height: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .signInButton {
+      height: 25px;
+      margin-left: 5px;
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-right: 5px;
+
+    a:visited {
+      color: blue;
+    }
+  }
+}

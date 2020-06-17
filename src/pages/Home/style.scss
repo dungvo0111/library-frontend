@@ -1,0 +1,14 @@
+.home {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__bookList {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+}
+
+
