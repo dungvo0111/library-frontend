@@ -15,7 +15,7 @@ export default function GoogleSignIn() {
   }
   return (
     <GoogleLogin
-      clientId="456127615538-je5k6c367plkld6ulva7ovdrq2mksuj2.apps.googleusercontent.com"
+      clientId="456127615538-1ei2bfaoooa7amf5t0r6uop092rqag24.apps.googleusercontent.com"
       buttonText="Login with Google"
       onSuccess={responseGoogle}
       onFailure={handleFailure}
