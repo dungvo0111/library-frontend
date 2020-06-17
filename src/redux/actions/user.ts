@@ -78,7 +78,7 @@ export function googleSignIn(idToken: string) {
     return async (dispatch: Dispatch) => {
         try {
             setAuthorizationHeader(idToken);
-            axios.post("/user/googleSignIn").then(res => {
+            axios.post("/user/googleSignIn").then(res => {     
                 setAuthorizationHeader(res.data.token);
                 dispatch({
                     type: SIGN_IN
