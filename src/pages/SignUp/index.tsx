@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import "./style.scss";
 import { AppState, SignUpPayload } from "../../types";
 //redux
-import { signUp } from "../../redux/actions/user";
+import { signUp, clearUserNoti } from "../../redux/actions/user";
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -36,11 +36,16 @@ export default function SignUp() {
   };
 
   useEffect(() => {
+    dispatch(clearUserNoti());
+  }, []);
+
+  useEffect(() => {
     if (signedUp) {
       alert("Sign up successful, now you can sign in!");
       history.push("/");
     }
   }, [signedUp, history]);
+
   const handleClick = () => {
     history.push("/");
   };

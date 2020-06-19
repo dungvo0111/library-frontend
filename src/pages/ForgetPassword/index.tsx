@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import "./style.scss";
 import { ForgetPasswordPayload, AppState } from "../../types";
 //redux
-import { forgetPassword } from "../../redux/actions/user";
+import { forgetPassword, clearUserNoti } from "../../redux/actions/user";
 
 export default function ForgetPassword() {
   const dispatch = useDispatch();
@@ -38,6 +38,10 @@ export default function ForgetPassword() {
   const handleClick = () => {
     history.push("/");
   };
+
+  useEffect(() => {
+    dispatch(clearUserNoti());
+  }, []);
 
   return (
     <div className="forgetPassword">

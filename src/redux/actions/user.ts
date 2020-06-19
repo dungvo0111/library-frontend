@@ -22,6 +22,8 @@ import {
     UpdatePasswordPayload,
     ForgetPasswordPayload,
     ResetPasswordPayload,
+    CLEAR_USER_NOTI,
+    ClearUserNotiAction,
 } from '../../types'
 
 export function signUp(signUpPayload: SignUpPayload) {
@@ -78,7 +80,7 @@ export function googleSignIn(idToken: string) {
     return async (dispatch: Dispatch) => {
         try {
             setAuthorizationHeader(idToken);
-            axios.post("/user/googleSignIn").then(res => {     
+            axios.post("/user/googleSignIn").then(res => {
                 setAuthorizationHeader(res.data.token);
                 dispatch({
                     type: SIGN_IN
@@ -209,6 +211,12 @@ export function resetPassword(payload: ResetPasswordPayload) {
         } catch (error) {
             console.log(error)
         }
+    }
+}
+
+export function clearUserNoti(): UserActions {
+    return {
+        type: CLEAR_USER_NOTI,
     }
 }
 

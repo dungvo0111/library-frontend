@@ -15,6 +15,7 @@ import {
     FORGET_PASSWORD_FAILED,
     RESET_PASSWORD_FAILED,
     RESET_PASSWORD,
+    CLEAR_USER_NOTI,
 } from '../../types'
 
 const defaultState: UserState = {
@@ -74,6 +75,12 @@ export default function user(
                 ...state,
                 error: [],
                 message: [...state.message, action.message]
+            }
+        case CLEAR_USER_NOTI:
+            return {
+                ...state,
+                error: [],
+                message: []
             }
         default:
             return state

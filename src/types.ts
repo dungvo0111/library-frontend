@@ -18,6 +18,8 @@ export const FORGET_PASSWORD = 'FORGET_PASSWORD'
 export const FORGET_PASSWORD_FAILED = 'FORGET_PASSWORD_FAILED'
 export const RESET_PASSWORD = 'RESET_PASSWORD'
 export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED'
+export const CLEAR_USER_NOTI = 'CLEAR_USER_NOTI'
+
 //Books
 export type FetchBooksAction = {
     type: typeof FETCH_BOOKS
@@ -106,6 +108,10 @@ export type ResetPasswordFailedAction = {
     error: string
 }
 
+export type ClearUserNotiAction = {
+    type: typeof CLEAR_USER_NOTI,
+}
+
 //Actions
 export type BooksActions =
     FetchBooksAction
@@ -128,6 +134,8 @@ export type UserActions =
     | ForgetPasswordFailedAction
     | ResetPasswordAction
     | ResetPasswordFailedAction
+    | ClearUserNotiAction
+
 //State
 export type BookState = {
     ISBN: ISBN;

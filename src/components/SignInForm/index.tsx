@@ -5,17 +5,18 @@ import { Link } from "react-router-dom";
 import "./style.scss";
 import { SignInPayload, AppState } from "../../types";
 //redux
-import { signIn } from "../../redux/actions/user";
+import { signIn, clearUserNoti } from "../../redux/actions/user";
 
 export default function SignInForm() {
   const dispatch = useDispatch();
-  const userError = useSelector((state: AppState) => state.user.error);
+  const error = useSelector((state: AppState) => state.user.error);
 
   const initState = {
     email: "",
     password: "",
   };
   const [signInPayload, setSignInPayload] = useState(initState);
+  const [didMount, setDidMount] = useState(false);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
@@ -33,8 +34,14 @@ export default function SignInForm() {
   };
 
   useEffect(() => {
-    if (userError.length > 0) alert(userError[userError.length - 1]);
-  }, [userError]);
+    dispatch(clearUserNoti());
+    setDidMount(true);
+  }, []);
+
+  useEffect(() => {
+    if (error.length > 0 && didMount) alert(error[error.length - 1]);
+  }, [error]);
+
   return (
     <div className="signInContainer">
       <form className="signInForm" onSubmit={handleSubmit}>
