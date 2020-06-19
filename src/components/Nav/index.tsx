@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 import "./style.scss";
@@ -58,7 +59,7 @@ export default function Nav() {
       )}
       {authenticated && (
         <div className="nav__right">
-          <a href="/userProfile">{userName}</a>
+          <Link to="/userProfile">{userName}</Link>
           <button style={{ marginLeft: "10px" }} onClick={handleSignOut}>
             Sign out
           </button>

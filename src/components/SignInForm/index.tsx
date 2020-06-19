@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import "./style.scss";
 import { SignInPayload, AppState } from "../../types";
@@ -65,12 +66,12 @@ export default function SignInForm() {
         </button>
       </form>
       <div className="links">
-        <a className="signUpLink" href="/signUp">
+        <Link className="signUpLink" to="/signUp">
           Sign Up
-        </a>
-        <a className="forgetPasswordLink" href="/resetPassword">
+        </Link>
+        <Link className="forgetPasswordLink" to="/resetPassword">
           Forget password?
-        </a>
+        </Link>
       </div>
     </div>
   );
