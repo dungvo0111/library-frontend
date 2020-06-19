@@ -13,7 +13,7 @@ import ResetPassword from "./pages/ResetPassword";
 //Redux
 import makeStore from "./redux/store";
 
-axios.defaults.baseURL = "http://localhost:3000/api/v1";
+axios.defaults.baseURL = "https://backend-library.herokuapp.com/api/v1";
 
 const store = makeStore();
 
