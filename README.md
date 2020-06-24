@@ -1,6 +1,6 @@
 ## Welcome to a prototype of an online library
 
-Link demo: https://countries123.netlify.app/
+Link demo: https://online-library123.herokuapp.com/
 
 ### Technologies
 * client: TypeScript, React, Material-UI, Redux
