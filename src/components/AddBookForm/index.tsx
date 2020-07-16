@@ -97,7 +97,7 @@ export default function AddBookForm() {
         {formElem.map((elem) => (
           <div className="addForm__elem" key={elem.label}>
             <TextField
-              id={elem.name}
+              id={elem.label}
               name={elem.name}
               label={elem.label}
               multiline={elem.name === "description" && true}

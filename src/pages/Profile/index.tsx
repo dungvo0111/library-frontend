@@ -7,7 +7,7 @@ import { AppState } from "../../types";
 //Context API
 import ThemeContext, { themes } from "../../context";
 //redux
-import { clearUserNoti, clearBookNoti  } from "../../redux/actions";
+import { clearUserNoti, clearBookNoti } from "../../redux/actions";
 //components
 import Nav from "../../components/Nav";
 import UserProfile from "../../components/UserProfile";
@@ -46,7 +46,7 @@ export default function Profile() {
   }, []);
 
   useEffect(() => {
-    if (!authenticated) {
+    if (!localStorage.signInToken) {
       history.push("/");
     }
   }, [authenticated]);
@@ -68,7 +68,9 @@ export default function Profile() {
 
   useEffect(() => {
     if (bookMessage.length > 0)
-      enqueueSnackbar(bookMessage[bookMessage.length - 1], { variant: "success" });
+      enqueueSnackbar(bookMessage[bookMessage.length - 1], {
+        variant: "success",
+      });
   }, [bookMessage]);
 
   //tabs value

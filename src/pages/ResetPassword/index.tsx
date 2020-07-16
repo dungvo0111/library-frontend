@@ -31,6 +31,7 @@ export default function ResetPassword() {
 
   const error = useSelector((state: AppState) => state.user.error);
   const message = useSelector((state: AppState) => state.user.message);
+
   const [resetPasswordPayload, setResetPasswordPayload] = useState(initState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

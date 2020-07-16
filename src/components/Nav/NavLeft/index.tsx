@@ -19,7 +19,6 @@ import { fetchBooks, toggleDrawer, clearAllFilters, clearBookNoti } from "../../
 export default function NavLeft() {
   const classes = useStyles();
   const location = useLocation();
-  const history = useHistory();
   const dispatch = useDispatch();
   const { theme } = useContext(ThemeContext);
 

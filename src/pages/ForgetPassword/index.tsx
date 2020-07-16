@@ -30,6 +30,10 @@ export default function ForgetPassword() {
   };
   const error = useSelector((state: AppState) => state.user.error);
   const message = useSelector((state: AppState) => state.user.message);
+  const authenticated = useSelector(
+    (state: AppState) => state.user.authenticated
+  );
+
   const [forgetPasswordPayload, setForgetPasswordPayload] = useState(initState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +58,12 @@ export default function ForgetPassword() {
   useEffect(() => {
     dispatch(clearUserNoti());
   }, []);
+
+  useEffect(() => {
+    if (localStorage.signInToken) {
+      history.push("/");
+    }
+  }, [authenticated]);
 
   useEffect(() => {
     if (error.length > 0)
@@ -86,7 +96,11 @@ export default function ForgetPassword() {
             <h2 className="forgetPassword__title">
               Password retrieval request
             </h2>
-            <form className="forgetPassword__form" onSubmit={handleSubmit} autoComplete="off">
+            <form
+              className="forgetPassword__form"
+              onSubmit={handleSubmit}
+              autoComplete="off"
+            >
               <p
                 className="updateProfileForm__notice"
                 style={{ color: theme.code }}
@@ -94,9 +108,8 @@ export default function ForgetPassword() {
                 *Please input your log-in email
               </p>
               <div className="forgetPassword__elem">
-    
                 <TextField
-                  id="email"
+                  id="Email"
                   type="text"
                   name="email"
                   label="Email"
