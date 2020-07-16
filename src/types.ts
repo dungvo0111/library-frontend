@@ -3,6 +3,19 @@ export const FETCH_BOOKS = 'FETCH_BOOKS'
 export const FILTER_BY_QUERY = 'FILTER_BY_QUERY'
 export const BOOK_NOT_FOUND = 'BOOK_NOT_FOUND'
 export const SEARCH_BY_ISBN = 'SEARCH_BY_ISBN'
+export const ADD_BOOK = 'ADD_BOOK'
+export const ADD_BOOK_FAILED = 'ADD_BOOK_FAILED'
+export const DELETE_BOOK = 'DELETE_BOOK'
+export const UPDATE_BOOK = 'UPDATE_BOOK'
+export const BORROW_BOOK = 'BORROW_BOOK'
+export const BORROW_BOOK_FAILED = 'BORROW_BOOK_FAILED'
+export const RETURN_BOOK = 'RETURN_BOOK'
+export const CLEAR_BOOK_NOTI = 'CLEAR_BOOK_NOTI'
+export const CLEAR_BOOK_BOOLEAN = 'CLEAR_BOOK_BOOLEAN'
+export const SET_FILTERS = 'SET_FILTERS'
+export const CLEAR_FILTER = 'CLEAR_FILTER'
+export const CLEAR_ALL_FILTERS = 'CLEAR_ALL_FILTERS'
+export const LOADING_BOOKS = 'LOADING_BOOKS'
 
 export const SIGN_IN = 'SIGN_IN'
 export const SIGN_IN_FAILED = 'SIGN_IN_FAILED'
@@ -19,16 +32,29 @@ export const FORGET_PASSWORD_FAILED = 'FORGET_PASSWORD_FAILED'
 export const RESET_PASSWORD = 'RESET_PASSWORD'
 export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED'
 export const CLEAR_USER_NOTI = 'CLEAR_USER_NOTI'
+export const BORROW_HISTORY = 'BORROW_HISTORY'
+export const LOADING_USER = 'LOADING_USER'
 
+export const TOGGLE_DRAWER = 'TOGGLE_DRAWER'
+export const SORTING_ORDER = 'SORTING_ORDER'
+
+export const ANCHOR_LEFT = 'left'
+export const ANCHOR_RIGHT = 'right'
 //Books
 export type FetchBooksAction = {
     type: typeof FETCH_BOOKS
-    payload: BookState[]
+    payload: {
+        results: BookState[],
+        pages: number
+    }
 }
 
 export type FilterByQueryAction = {
     type: typeof FILTER_BY_QUERY
-    payload: BookState[]
+    payload: {
+        results: BookState[],
+        pages: number
+    }
 }
 
 export type BookNotFoundAction = {
@@ -39,6 +65,72 @@ export type BookNotFoundAction = {
 export type SearchByISBNAction = {
     type: typeof SEARCH_BY_ISBN
     payload: BookState
+}
+
+export type AddBookAction = {
+    type: typeof ADD_BOOK
+    message: string
+}
+
+export type AddBookFailedAction = {
+    type: typeof ADD_BOOK_FAILED
+    error: string
+}
+
+export type DeleteBookAction = {
+    type: typeof DELETE_BOOK
+    message: string
+}
+
+export type UpdateBookAction = {
+    type: typeof UPDATE_BOOK
+    message: string
+}
+
+export type BorrowBookAction = {
+    type: typeof BORROW_BOOK
+    message: string
+}
+
+export type BorrowBookFailedAction = {
+    type: typeof BORROW_BOOK_FAILED
+    error: string
+}
+
+export type ReturnBookAction = {
+    type: typeof RETURN_BOOK
+    message: string
+    duration: number
+}
+
+export type SetFiltersAction = {
+    type: typeof SET_FILTERS
+    payload: {
+        filters: FilterType
+    }
+}
+
+export type ClearFilterAction = {
+    type: typeof CLEAR_FILTER
+    payload: {
+        filter: Filter
+    }
+}
+
+export type ClearAllFiltersAction = {
+    type: typeof CLEAR_ALL_FILTERS
+}
+
+export type ClearBookNotiAction = {
+    type: typeof CLEAR_BOOK_NOTI,
+}
+
+export type ClearBookBooleanAction = {
+    type: typeof CLEAR_BOOK_BOOLEAN,
+}
+
+export type LoadingBooksAction = {
+    type: typeof LOADING_BOOKS,
 }
 
 //USER
@@ -112,12 +204,50 @@ export type ClearUserNotiAction = {
     type: typeof CLEAR_USER_NOTI,
 }
 
+export type BorrowHistoryAction = {
+    type: typeof BORROW_HISTORY
+    payload: BorrowHistoryPayload
+}
+
+export type LoadingUserAction = {
+    type: typeof LOADING_USER
+}
+
+//UI
+export type Anchor = 'left' | 'right'
+export type Filter = "author" | "title" | "genres" | "status";
+
+export type ToggleDrawerAction = {
+    type: typeof TOGGLE_DRAWER
+    payload: {
+        direction: Anchor
+        isOpen: boolean
+    }
+}
+
+export type SortingOrderAction = {
+    type: typeof SORTING_ORDER
+}
+
 //Actions
 export type BooksActions =
     FetchBooksAction
     | FilterByQueryAction
     | BookNotFoundAction
     | SearchByISBNAction
+    | AddBookAction
+    | AddBookFailedAction
+    | ClearBookNotiAction
+    | DeleteBookAction
+    | UpdateBookAction
+    | BorrowBookAction
+    | BorrowBookFailedAction
+    | ReturnBookAction
+    | SetFiltersAction
+    | ClearFilterAction
+    | ClearAllFiltersAction
+    | ClearBookBooleanAction
+    | LoadingBooksAction
 
 export type UserActions =
     SignInAction
@@ -135,6 +265,12 @@ export type UserActions =
     | ResetPasswordAction
     | ResetPasswordFailedAction
     | ClearUserNotiAction
+    | BorrowHistoryAction
+    | LoadingUserAction
+
+export type UiActions =
+    | ToggleDrawerAction
+    | SortingOrderAction
 
 //State
 export type BookState = {
@@ -142,18 +278,30 @@ export type BookState = {
     title: string;
     description: string;
     publisher: string;
-    author: [string];
+    author: string[];
     status: Status;
-    genres: [string];
-    borrowerId?: string;
+    genres: string[];
+    borrowerId: string[];
     publishedDate: Date;
-    borrowedDate?: Date;
-    returnedDate?: Date;
+    borrowedDate: Date;
+    returnedDate: Date;
 }
 
 export type BooksState = {
     bookList: BookState[],
-    error: string
+    pages: number,
+    error: string[],
+    message: string[],
+    filters: FilterType,
+    isFiltered: boolean,
+    isAdded: boolean,
+    isDeleted: boolean,
+    isISBN: boolean,
+    isUpdated: boolean,
+    isBorrowed: boolean,
+    isReturned: boolean,
+    borrowDuration: number,
+    isLoading: boolean,
 }
 
 export type UserState = {
@@ -161,15 +309,27 @@ export type UserState = {
     signedUp: boolean,
     error: string[],
     message: string[],
+    borrowHistory: BorrowHistoryPayload,
+    isLoading: boolean,
+}
+
+export type UiState = {
+    drawers: {
+        left: boolean
+        right: boolean
+    },
+    isAscending: boolean
+
 }
 
 export type AppState = {
     books: BooksState,
-    user: UserState
+    user: UserState,
+    ui: UiState
 }
 
 //others
-type ISBN = '^(97(8|9))?d{9}(d|X)$'
+export type ISBN = '^(97(8|9))?d{9}(d|X)$'
 type Status = 'available' | 'borrowed'
 
 export type TokenType = {
@@ -183,10 +343,10 @@ export type TokenType = {
 };
 
 export type FilterType = {
-    author?: string;
-    title?: string;
-    status?: string;
-    genres?: string;
+    author: string;
+    title: string;
+    status: string;
+    genres: string;
 };
 
 export type SignInPayload = {
@@ -220,3 +380,50 @@ export type ForgetPasswordPayload = {
     email: string,
     url: string
 };
+
+export type UnprocessedBookPayload = {
+    ISBN: ISBN;
+    author: string;
+    title: string;
+    genres: string;
+    description: string;
+    publisher: string;
+    publishedDate: string;
+}
+
+export type AddBookPayload = {
+    ISBN: ISBN;
+    title: string;
+    description: string;
+    publisher: string;
+    author: string[];
+    genres: string[];
+    publishedDate: Date;
+}
+
+export type UpdateBookPayload = {
+    title: string;
+    description: string;
+    publisher: string;
+    author: string[];
+    genres: string[];
+    publishedDate: Date;
+}
+
+export type UnprocessedUpdateBookPayload = {
+    author: string;
+    title: string;
+    genres: string;
+    description: string;
+    publisher: string;
+    publishedDate: string;
+}
+
+export type BorrowBookPayload = {
+    returnedDate: Date;
+}
+
+export type BorrowHistoryPayload = {
+    borrowingBooks: Partial<BookState>[],
+    returnedBooks: Partial<BookState>[]
+}

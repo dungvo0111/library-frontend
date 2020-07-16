@@ -1,0 +1,18 @@
+.drawerList {
+  width: 250px;
+
+  &__panel {
+    display: flex;
+    justify-content: space-between;
+
+    &__themeIcon {
+      padding: 10px 15px;
+      margin-right: 10px;
+      color: white;
+    }
+  }
+}
+
+.userPanel__icon {
+  margin-right: 10px;
+}

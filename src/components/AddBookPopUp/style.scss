@@ -1,0 +1,15 @@
+.dialog {
+    position: relative;
+    width: 400px;
+    transition: width ease-in 300ms;
+
+    &__closeIcon {
+        position: absolute;
+        top: 3px;
+        right: 8px;
+    }
+
+    @media (min-width: 992px) {
+        width: 600px;
+    }
+}

@@ -1,140 +1,110 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect, useContext, ChangeEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./style.scss";
-import { FilterType } from "../../types";
+import { AppState, FilterType } from "../../types";
+//Context API
+import ThemeContext, { themes } from "../../context";
 //redux
-import { filterByQuery } from "../../redux/actions";
+import { filterByQuery, showFilters } from "../../redux/actions";
+//MUI
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+//helpers
+import { setQueries } from "../../helpers/helperFunc";
+//elemData
+import { filterFormElem } from "../../ElemData/elemData";
 
 export default function FilterForm() {
+  const { theme } = useContext(ThemeContext);
   const initState = {
     author: "",
     title: "",
-    status: "",
     genres: "",
+    status: "",
   };
   const [filters, setFilters] = useState<FilterType>(initState);
   const dispatch = useDispatch();
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
-    const newFilters: FilterType = { ...filters, [target.name]: target.value };
+  const currentFilters = useSelector((state: AppState) => state.books.filters);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target;
+    let newFilters: FilterType;
+    if (Object.values(currentFilters).every((filter) => filter.length < 1)) {
+      newFilters = {
+        ...filters,
+        [target.name]: target.value,
+      };
+    } else {
+      newFilters = {
+        ...currentFilters,
+        [target.name]: target.value,
+      };
+    }
     setFilters(newFilters);
   };
 
-  const handleStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const target = e.currentTarget;
-    const newFilters: FilterType = { ...filters, [target.name]: target.value };
-    setFilters(newFilters);
-  };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const queries = setQueries(
-      filters.author,
-      filters.title,
-      filters.status,
-      filters.genres
-    );
-
+    const queries = setQueries(filters);
+    dispatch(showFilters(filters));
     dispatch(filterByQuery(queries));
     setFilters(initState);
   };
 
-  const setQueries = (
-    author: string | undefined,
-    title: string | undefined,
-    status: string | undefined,
-    genres: string | undefined
-  ) => {
-    if (
-      author?.includes(",") ||
-      title?.includes(",") ||
-      status?.includes(",") ||
-      genres?.includes(",")
-    ) {
-      const authorArr = author?.split(", ");
-      const titleArr = title?.split(", ");
-      const statusArr = status?.split(", ");
-      const genresArr = genres?.split(", ");
-      let authorQuery = "";
-      let titleQuery = "";
-      let statusQuery = "";
-      let genresQuery = "";
-      if (authorArr && authorArr.length > 0) {
-        authorArr.map((item) => (authorQuery += `author=${item}&`));
-      }
-      if (titleArr && titleArr.length > 0) {
-        titleArr.map((item) => (titleQuery += `title=${item}&`));
-      }
-      if (statusArr && statusArr.length > 0) {
-        statusArr.map((item) => (statusQuery += `status=${item}&`));
-      }
-      if (genresArr && genresArr.length > 0) {
-        genresArr.map((item) => (genresQuery += `genres=${item}&`));
-      }
-
-      return "?" + authorQuery + titleQuery + statusQuery + genresQuery;
-    }
-
-    return (
-      "?author=" +
-      author +
-      "&title=" +
-      title +
-      "&status=" +
-      status +
-      "&genres=" +
-      genres
-    );
-  };
-
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="form__elem">
-        <label htmlFor="author">Author: </label>
-        <input
-          id="author"
-          type="text"
-          name="author"
-          value={filters.author}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form__elem">
-        <label htmlFor="title">Title: </label>
-        <input
-          id="title"
-          type="text"
-          name="title"
-          value={filters.title}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form__elem">
-        <label htmlFor="genres">Genres: </label>
-        <input
-          id="genres"
-          type="text"
-          name="genres"
-          value={filters.genres}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form__elem">
-        <label htmlFor="status">Status: </label>
-        <select
-          id="status"
-          name="status"
-          value={filters.status}
-          onChange={handleStatus}
-        >
-          <option value=""></option>
-          <option value="available">available</option>
-          <option value="borrowed">borrowed</option>
-        </select>
-      </div>
+    <Paper className="filter">
+      <p className="filter__notice" style={{ color: theme.code }}>
+        *Each field can receive multiple values separated by commas
+      </p>
+      <form className="form" onSubmit={handleSubmit} autoComplete="off">
+        {filterFormElem.map(
+          (elem) => (
+            <div className="form__elem" key={elem.label}>
+              {elem.name === "status" ? (
+                <TextField
+                  select
+                  id={elem.name}
+                  name={elem.name}
+                  label={elem.label}
+                  value={filters[elem.name]}
+                  onChange={handleChange}
+                  style={{ color: theme.code }}                  
+                >
+                  {["available", "borrowed"].map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              ) : (
+                <TextField
+                  id={elem.name}
+                  name={elem.name}
+                  label={elem.label}
+                  value={filters[elem.name]}
+                  onChange={handleChange}
+                  style={{ color: theme.code }}
+                />
+              )}
+            </div>
+          )
+        )}
 
-      <button type="submit">Set Filters</button>
-    </form>
+        <Button
+          variant="text"
+          style={{
+            color: theme.code,
+            marginTop: "10px",
+          }}
+          type="submit"
+          size="small"
+        >
+          Add Filters
+        </Button>
+      </form>
+    </Paper>
   );
 }

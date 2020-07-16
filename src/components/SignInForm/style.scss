@@ -1,31 +1,54 @@
 .signInContainer {
   display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  align-items: center;
+  position: relative;
 
   .signInForm {
-    padding-right: 10px;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    padding-right: 0;
+
     &__elem {
       font-size: 14px;
       height: 50px;
+      margin-bottom: 10px;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-    }
-    .signInButton {
-      height: 25px;
-      margin-left: 5px;
+      line-height: 1.5rem;
     }
   }
 
-  .links {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    margin-right: 5px;
+  .resetLink {
+    text-decoration: none;
+    color: black;
+    margin-top: 50px;
 
-    a:visited {
-      color: blue;
+    &:visited {
+      text-decoration: none;
+    }
+    &:hover {
+      text-decoration: underline;
     }
   }
+
+  @media only screen and (min-width: 960.01px) {
+    .signInContainer {
+      width: 500px;
+      margin-bottom: 30px;
+    }
+
+    .resetLink {
+      margin-top: 80px;
+    }
+  }
+}
+
+.circularProgress {
+  position: absolute;
+  bottom: 40px;
 }

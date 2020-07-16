@@ -16,13 +16,20 @@ import {
     RESET_PASSWORD_FAILED,
     RESET_PASSWORD,
     CLEAR_USER_NOTI,
+    BORROW_HISTORY,
+    LOADING_USER,
 } from '../../types'
 
 const defaultState: UserState = {
     authenticated: false,
     signedUp: false,
     error: [],
-    message: []
+    message: [],
+    borrowHistory: {
+        borrowingBooks: [],
+        returnedBooks: []
+    },
+    isLoading: false
 }
 
 export default function user(
@@ -36,12 +43,14 @@ export default function user(
                 ...state,
                 authenticated: true,
                 signedUp: false,
+                isLoading: false,
                 error: [],
             }
         case SIGN_IN_FAILED:
             return {
                 ...state,
                 authenticated: false,
+                isLoading: false,
                 message: [],
                 error: [...state.error, action.error]
             }
@@ -82,6 +91,18 @@ export default function user(
                 error: [],
                 message: []
             }
+        case BORROW_HISTORY:
+            const history = action.payload
+            return {
+                ...state,
+                borrowHistory: { ...history }
+            }
+        case LOADING_USER:
+            return {
+                ...state,
+                isLoading: true
+            }
+
         default:
             return state
     }

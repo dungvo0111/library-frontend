@@ -2,14 +2,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 250px;
-    padding: 20px;
-    border: 1px solid black;
-    border-radius: 5px;
-  
+    margin: 10px;
+    height: 300px;
+    &__notice {
+      font-size: 14px;
+      margin: 20px;
+      font-style: italic;
+    }
     &__elem {
+      display: flex;
       flex-direction: column;
-      text-align: left;
-      margin: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      height: 50px;
+      justify-content: space-around;
     }
   }

@@ -13,13 +13,17 @@ export default function UserProfile() {
   };
   const message = useSelector((state: AppState) => state.user.message);
   const [userProfile, setUserProfile] = useState(initState);
+
   useEffect(() => {
     if (localStorage.signInToken) {
       const token = localStorage.signInToken;
       const decodedToken = jwtDecode<TokenType>(token);
       setUserProfile(decodedToken);
+    } else {
+      setUserProfile(initState);
     }
-  }, [message]);
+  }, [message, localStorage.signInToken]);
+
   return (
     <div className="userProfile">
       <div className="userProfile__elem">

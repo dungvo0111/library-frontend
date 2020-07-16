@@ -1,6 +1,81 @@
-.bookContainer {
+.books {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  min-width: 450px;
+  width: 50%;
+  margin-bottom: 15px;
+
+  &__book {
+    position: relative;
     display: flex;
     flex-direction: column;
-    line-height: 1.6;
-   
+    margin-bottom: 15px;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .notFound {
+    height: 150px;
+    justify-content: center;
+    font-size: 25px;
+  }
+
+  &__bookContainer {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    margin-top: 10px;
+  }
+
+  &__bookContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 5px;
+    line-height: 1.5rem;
+  }
+
+  &__subTitle {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+
+  &__genres {
+    margin: 10px 0;
+  }
+
+  &__description {
+    margin-top: 10px;
+  }
+
+  &__bookElem {
+    display: flex;
+  }
+
+  p {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  &__author {
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  .tag {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    font-size: 14px;
+    padding: 2px 15px;
+  }
+
+  .editIcon {
+    position: absolute;
+    top: 2px;
+    right: 3px;
+  }
 }

@@ -1,17 +1,32 @@
-.profileContainer {
-  height: 80vh;
+.container {
+  position: relative;
+  top: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px;
 }
 
-.forms {
-  width: 100vw;
-  display: flex;
-  justify-content: space-evenly;
-  margin: 50px;
-  
+.profile {
+  min-width: 400px;
+  max-width: 800px;
+  width: 60%;
+
+  &__paper {
+    margin-top: 20px;
+    height: auto;
+    max-height: 1000px;
+  }
 }
 
+.tabs {
+  border-bottom: 1px solid rgb(219, 219, 219);
 
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    max-height: 1000px;
+  }
+}

@@ -1,39 +1,34 @@
-import React from "react";
-import "./App.scss";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Provider } from "react-redux";
+import React, { useState } from "react";
 import axios from "axios";
 
-//Pages
-import Home from "./pages/Home";
-import SignUp from "./pages/SignUp";
-import Profile from "./pages/Profile";
-import ForgetPassword from "./pages/ForgetPassword";
-import ResetPassword from "./pages/ResetPassword";
-//Redux
-import makeStore from "./redux/store";
+import "./App.scss";
+//Context API
+import ThemeContext, { themes } from "./context";
+import Routes from "./Routes";
 
 axios.defaults.baseURL = "https://backend-library.herokuapp.com/api/v1";
 
-const store = makeStore();
-
 function App() {
+  const [context, setContext] = useState({
+    theme: themes.primary,
+    switchTheme: (code: string) => {
+      setContext((current) => ({
+        ...current,
+        theme:
+          code === themes.primary.code
+            ? themes.primary
+            : code === themes.secondary.code
+            ? themes.secondary
+            : themes.third,
+      }));
+    },
+  });
   return (
-    <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/signUp" component={SignUp} />
-          <Route exact path="/userProfile" component={Profile} />
-          <Route exact path="/resetPassword" component={ForgetPassword} />
-          <Route
-            exact
-            path="/resetPassword/:resetToken"
-            component={ResetPassword}
-          />
-        </Switch>
-      </Router>
-    </Provider>
+    <>
+      <ThemeContext.Provider value={context}>
+        <Routes />
+      </ThemeContext.Provider>
+    </>
   );
 }
 

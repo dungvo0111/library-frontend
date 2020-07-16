@@ -1,0 +1,29 @@
+.labels {
+  display: grid;
+  grid-template-columns: 150px 300px 100px 75px;
+  align-items: center;
+  height: 50px;
+  border-bottom: 1px solid rgb(233, 233, 233);
+  font-weight: bold;
+
+  @media (max-width: 991.98px) {
+    grid-template-columns: 150px 100px 75px;
+    &__ISBN {
+      display: none;
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    grid-template-columns: 300px 100px 75px;
+    &__ISBN {
+      display: none;
+    }
+  }
+
+  &__sortIcon {
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.5);
+    }
+  }
+}

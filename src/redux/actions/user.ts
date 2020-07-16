@@ -23,8 +23,11 @@ import {
     ForgetPasswordPayload,
     ResetPasswordPayload,
     CLEAR_USER_NOTI,
-    ClearUserNotiAction,
+    BORROW_HISTORY,
+    LOADING_USER,
 } from '../../types'
+//helpers
+import { setAuthorizationHeader, deleteToken } from '../../helpers/helperFunc';
 
 export function signUp(signUpPayload: SignUpPayload) {
     return async (dispatch: Dispatch) => {
@@ -32,17 +35,17 @@ export function signUp(signUpPayload: SignUpPayload) {
             axios.post("/user", signUpPayload).then(res => {
                 dispatch({
                     type: SIGN_UP,
-
                 })
-            }).catch(err => {
-                if (err.response) {
-                    console.log(err.response.data.message)
-                    dispatch({
-                        type: SIGN_UP_FAILED,
-                        error: err.response.data.message
-                    })
-                }
             })
+                .catch(err => {
+                    if (err.response) {
+                        console.log(err.response.data.message)
+                        dispatch({
+                            type: SIGN_UP_FAILED,
+                            error: err.response.data.message
+                        })
+                    }
+                })
 
         } catch (error) {
             console.log(error)
@@ -53,7 +56,7 @@ export function signUp(signUpPayload: SignUpPayload) {
 export function signIn(signInPayload: SignInPayload) {
     return async (dispatch: Dispatch) => {
         try {
-
+            dispatch({ type: LOADING_USER })
             axios.post("/user/signIn", signInPayload).then(res => {
                 setAuthorizationHeader(res.data.token);
                 dispatch({
@@ -79,6 +82,7 @@ export function signIn(signInPayload: SignInPayload) {
 export function googleSignIn(idToken: string) {
     return async (dispatch: Dispatch) => {
         try {
+            dispatch({ type: LOADING_USER })
             setAuthorizationHeader(idToken);
             axios.post("/user/googleSignIn").then(res => {
                 setAuthorizationHeader(res.data.token);
@@ -102,6 +106,7 @@ export function googleSignIn(idToken: string) {
 }
 
 export function signOut(): UserActions {
+    deleteToken();
     return {
         type: SIGN_OUT
     }
@@ -118,6 +123,7 @@ export function updateProfile(payload: UpdateProfilePayload) {
         try {
             setAuthorizationHeader(localStorage.signInToken);
             axios.put("/user/updateProfile", payload).then(res => {
+                console.log(res.data)
                 setAuthorizationHeader(res.data.token);
                 dispatch({
                     type: UPDATE_PROFILE,
@@ -192,7 +198,6 @@ export function forgetPassword(payload: ForgetPasswordPayload) {
 export function resetPassword(payload: ResetPasswordPayload) {
     return async (dispatch: Dispatch) => {
         try {
-            console.log(payload.resetToken)
             axios.put(`/user/resetPassword/${payload.resetToken}`, payload).then(res => {
                 dispatch({
                     type: RESET_PASSWORD,
@@ -220,12 +225,18 @@ export function clearUserNoti(): UserActions {
     }
 }
 
-const setAuthorizationHeader = (token: string) => {
-    if (!localStorage.getItem("signInToken") || token !== localStorage.getItem("signInToken")) {
-        const signInToken = `Bearer ${token}`;
-        localStorage.setItem("signInToken", signInToken);
-        axios.defaults.headers.common["Authorization"] = signInToken;
-    } else {
-        axios.defaults.headers.common["Authorization"] = token;
+export function getBorrowHistory(userId: string) {
+    return async (dispatch: Dispatch) => {
+        try {
+            axios.get(`/user/${userId}`).then(res => {
+                dispatch({
+                    type: BORROW_HISTORY,
+                    payload: res.data
+                })
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
     }
-};
+}

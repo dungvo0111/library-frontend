@@ -1,0 +1,55 @@
+.skeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    min-width: 450px;
+    width: 100%;
+    margin-bottom: 15px;
+
+    &__container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        align-items: center;
+        padding: 10px;
+        width: 100%;
+    }
+
+    &__content {
+        max-width: 800px;
+        width: 100%;
+        padding: 20px;
+        margin-top: 10px;
+    }
+
+    &__title {
+        background-color: rgba(0, 0, 0, 0.6);
+        height: 39px;
+        width: 400px;
+        margin-bottom: 20px;
+    }
+
+    &__author {
+        background-color: rgba(0, 0, 0, 0.1);
+        height: 24px;
+        width: 100px;
+        margin-bottom: 40px;
+    }
+
+    &__genres {
+        background-color: rgba(0, 0, 0, 0.3);
+        height: 24px;
+        width: 200px;
+        margin: 15px 0 10px 0;
+    }
+
+    &__description {
+        background-color: rgba(0, 0, 0, 0.3);
+        height: 48px;
+        max-width: 600px;
+        width: 100%;
+        margin: 15px 0;
+    }
+}

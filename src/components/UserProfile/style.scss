@@ -1,10 +1,7 @@
 .userProfile {
     margin: 20px;
-    padding: 0 20px;
-    width: 50%;
-    max-width: 400px;
-    border: 1px solid black;
-    border-radius: 5px;
+    padding: 20px;
+    min-width: 400px;
     line-height: 30px;
     display: flex;
     flex-direction: column;

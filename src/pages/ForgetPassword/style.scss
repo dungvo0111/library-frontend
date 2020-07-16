@@ -1,14 +1,41 @@
+.container {
+  position: relative;
+  top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+
+  &__content {
+    min-width: 400px;
+    max-width: 800px;
+    width: 50%;
+  }
+}
+
 .forgetPassword {
-    height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  height: 250px;
+
+  &__title {
+    margin-top: 20px;
+  }
+
+  &__form {
+    margin: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    
+  }
 
-    &__form {
-        margin: 20px;
-        display: flex;
-        align-items: center;
-    }
+  &__elem {
+    font-size: 14px;
+    height: 50px;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
 }
