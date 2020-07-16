@@ -7,7 +7,7 @@ Link demo: https://online-library123.herokuapp.com/
 * server: TypeScript, Node.js, Express.js, Rest API, MongoDB
 
 ### Description
-An online library where visitors can search books by ISBN or filter them by title, author, status and genres. Also, they can look for the authors.
+A responsive library web app where visitors can search books by ISBN or filter them by title, author, status and genres. Also, they can look for the authors.
 
 The library allows signing in with Google accounts. Otherwise, visitors have to sign up manually before being able to sign in with their registered accounts.
 
