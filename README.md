@@ -2,6 +2,8 @@
 
 Link demo: https://online-library123.herokuapp.com/
 
+Back-end [repo][repo]
+
 ### Technologies
 * client: TypeScript, React, Material-UI, Redux
 * server: TypeScript, Node.js, Express.js, Rest API, MongoDB
@@ -16,3 +18,5 @@ Signed-in users have the right to borrow and return books from the library.
 Admin user can add, update, or remove books and authors. 
 
 This is my individual project accomplished at Integrify. 
+
+[repo]: https://github.com/dungvo0111/library-backend
